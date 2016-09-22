@@ -1,57 +1,9 @@
-Hugo
-====
-
-Annotation-triggered method call logging for your debug builds.
-
-As a programmer, you often add log statements to print method calls, their arguments, their return
-values, and the time it took to execute. This is not a question. Every one of you does this.
-Shouldn't it be easier?
-
-Simply add `@DebugLog` to your methods and you will automatically get all of the things listed above
-logged for free.
+Wiretap
+=======
 
 ```java
-@DebugLog
-public String getName(String first, String last) {
-  SystemClock.sleep(15); // Don't ever really do this!
-  return first + " " + last;
-}
+// TODO
 ```
-```
-V/Example: ⇢ getName(first="Jake", last="Wharton")
-V/Example: ⇠ getName [16ms] = "Jake Wharton"
-```
-
-The logging will only happen in debug builds and the annotation itself is never present in the
-compiled class file for any build type. This means you can keep the annotation and check it into
-source control. It has zero effect on non-debug builds.
-
-Add it to your project today!
-
-```groovy
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
-  }
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.hugo'
-```
-
-Disable logging temporarily by adding the following:
-
-```groovy
-hugo {
-  enabled false
-}
-```
-
-If you want to toggle logging at runtime, use `Hugo.setEnabled(true|false)`
 
 
 Local Development
@@ -68,7 +20,7 @@ Working on this project? Here's some helpful Gradle tasks:
 License
 --------
 
-    Copyright 2013 Jake Wharton
+    Copyright 2016 Agrisight, Inc
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
