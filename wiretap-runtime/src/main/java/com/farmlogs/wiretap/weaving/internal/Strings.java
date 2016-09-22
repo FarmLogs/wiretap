@@ -1,4 +1,4 @@
-package hugo.weaving.internal;
+package com.farmlogs.wiretap.weaving.internal;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -1,6 +1,6 @@
-package hugo.weaving.plugin
+package com.farmlogs.wiretap.weaving.plugin
 
-class HugoExtension {
+class WiretapExtension {
   def enabled = true
 
   def setEnabled(boolean enabled) {

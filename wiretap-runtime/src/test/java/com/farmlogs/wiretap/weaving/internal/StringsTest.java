@@ -1,4 +1,6 @@
-package hugo.weaving.internal;
+package com.farmlogs.wiretap.weaving.internal;
+
+import com.farmlogs.wiretap.weaving.internal.Strings;
 
 import java.math.BigInteger;
 import org.junit.Test;

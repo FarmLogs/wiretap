@@ -1,4 +1,4 @@
-package hugo.weaving;
+package com.farmlogs.wiretap;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

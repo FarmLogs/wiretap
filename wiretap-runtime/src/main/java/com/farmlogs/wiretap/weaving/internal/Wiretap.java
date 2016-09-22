@@ -1,4 +1,4 @@
-package hugo.weaving.internal;
+package com.farmlogs.wiretap.weaving.internal;
 
 import android.os.Build;
 import android.os.Looper;
@@ -17,10 +17,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import java.util.concurrent.TimeUnit;
 
 @Aspect
-public class Hugo {
+public class Wiretap {
   private static volatile boolean enabled = true;
 
-  @Pointcut("within(@hugo.weaving.DebugLog *)")
+  @Pointcut("within(@DebugLog *)")
   public void withinAnnotatedClass() {}
 
   @Pointcut("execution(!synthetic * *(..)) && withinAnnotatedClass()")
@@ -29,14 +29,14 @@ public class Hugo {
   @Pointcut("execution(!synthetic *.new(..)) && withinAnnotatedClass()")
   public void constructorInsideAnnotatedType() {}
 
-  @Pointcut("execution(@hugo.weaving.DebugLog * *(..)) || methodInsideAnnotatedType()")
+  @Pointcut("execution(@DebugLog * *(..)) || methodInsideAnnotatedType()")
   public void method() {}
 
-  @Pointcut("execution(@hugo.weaving.DebugLog *.new(..)) || constructorInsideAnnotatedType()")
+  @Pointcut("execution(@DebugLog *.new(..)) || constructorInsideAnnotatedType()")
   public void constructor() {}
 
   public static void setEnabled(boolean enabled) {
-    Hugo.enabled = enabled;
+    Wiretap.enabled = enabled;
   }
 
   @Around("method() || constructor()")

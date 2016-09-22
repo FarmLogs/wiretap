@@ -1,4 +1,4 @@
-package hugo.weaving.plugin
+package com.farmlogs.wiretap.weaving.plugin
 
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin
@@ -9,7 +9,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.compile.JavaCompile
 
-class HugoPlugin implements Plugin<Project> {
+class WiretapPlugin implements Plugin<Project> {
   @Override void apply(Project project) {
     def hasApp = project.plugins.withType(AppPlugin)
     def hasLib = project.plugins.withType(LibraryPlugin)
@@ -26,20 +26,17 @@ class HugoPlugin implements Plugin<Project> {
     }
 
     project.dependencies {
-      debugCompile 'com.jakewharton.hugo:hugo-runtime:1.2.2-SNAPSHOT'
+      debugCompile 'com.farmlogs.wiretap:wiretap-runtime:0.1-SNAPSHOT'
       // TODO this should come transitively
       debugCompile 'org.aspectj:aspectjrt:1.8.6'
-      compile 'com.jakewharton.hugo:hugo-annotations:1.2.2-SNAPSHOT'
+      compile 'com.farmlogs.wiretap:wiretap-annotations:0.1-SNAPSHOT'
     }
 
-    project.extensions.create('hugo', HugoExtension)
+    project.extensions.create('wiretap', WiretapExtension)
 
     variants.all { variant ->
-      if (!variant.buildType.isDebuggable()) {
-        log.debug("Skipping non-debuggable build type '${variant.buildType.name}'.")
-        return;
-      } else if (!project.hugo.enabled) {
-        log.debug("Hugo is not disabled.")
+      if (!project.wiretap.enabled) {
+        log.debug("Wiretap is not enabled.")
         return;
       }
 
