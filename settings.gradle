@@ -1,3 +1,3 @@
-include ':hugo-annotations'
-include ':hugo-plugin'
-include ':hugo-runtime'
+include ':wiretap-annotations'
+include ':wiretap-plugin'
+include ':wiretap-runtime'

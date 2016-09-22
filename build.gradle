@@ -30,18 +30,18 @@ ext {
 
 task cleanExample(type: Exec) {
   executable = '../gradlew'
-  workingDir = project.file('hugo-example')
+  workingDir = project.file('wiretap-example')
   args = [ 'clean' ]
 }
 
 task assembleExample(type: Exec) {
   executable = '../gradlew'
-  workingDir = project.file('hugo-example')
+  workingDir = project.file('wiretap-example')
   args = [ 'assemble' ]
 }
 
 task installExample(type: Exec) {
   executable = '../gradlew'
-  workingDir = project.file('hugo-example')
+  workingDir = project.file('wiretap-example')
   args = [ 'installDebug' ]
 }
