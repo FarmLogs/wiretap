@@ -1,4 +1,4 @@
-package com.farmlogs.wiretap.library;
+package com.farmlogs.wiretap.runtime;
 
 /**
  * @author Damian Wieczorek {@literal <damian@farmlogs.com>}
@@ -11,9 +11,9 @@ public final class Wiretap {
     throw new IllegalArgumentException("No instances!");
   }
 
-  public static MethodCallListener listener;
+  static MethodCallListener listener;
 
-  public void setMethodCallListener(final MethodCallListener listener) {
+  public static void setMethodCallListener(final MethodCallListener listener) {
     Wiretap.listener = listener;
   }
 

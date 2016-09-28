@@ -1,7 +1,4 @@
-package com.farmlogs.wiretap.weaving.internal;
-
-import com.farmlogs.wiretap.library.MethodCallListener;
-import com.farmlogs.wiretap.library.Wiretap;
+package com.farmlogs.wiretap.runtime;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,7 +10,12 @@ import org.aspectj.lang.reflect.CodeSignature;
 import java.lang.reflect.Method;
 
 @Aspect
-public class WiretapRuntime {
+public final class $$WiretapRuntime {
+
+  private $$WiretapRuntime() {
+    throw new UnsupportedOperationException("No instances!");
+  }
+
   private static volatile boolean enabled = true;
 
   @Pointcut("within(@com.farmlogs.wiretap.Tap *)")
@@ -32,7 +34,7 @@ public class WiretapRuntime {
   public void constructor() {}
 
   public static void setEnabled(boolean enabled) {
-    WiretapRuntime.enabled = enabled;
+    $$WiretapRuntime.enabled = enabled;
   }
 
   @Around("method() || constructor()")
