@@ -35,23 +35,30 @@ public final class $$WiretapRuntime {
 
   @Around("method() || constructor()")
   public Object logAndExecute(ProceedingJoinPoint joinPoint) throws Throwable {
-    enterMethod(joinPoint);
-    return joinPoint.proceed();
-  }
+    if (!enabled) {
+      return joinPoint.proceed();
+    }
 
-  private static void enterMethod(JoinPoint joinPoint) {
-    if (!enabled) return;
+    final MethodCallListener listener = Wiretap.listener;
+    if (listener == null) {
+      return joinPoint.proceed();
+    }
 
     final Method method = getMethod(joinPoint);
     final Object receiver = joinPoint.getThis();
     final Object[] arguments = joinPoint.getArgs();
 
-    final MethodCallListener listener = Wiretap.listener;
-    if (listener == null) {
-      return;
+    listener.onMethodCalled(method, receiver, arguments);
+    Object returnValue;
+    try {
+      returnValue = joinPoint.proceed();
+    } catch (Throwable throwable) {
+      listener.onMethodThrew(method, receiver, arguments, throwable);
+      throw throwable;
     }
 
-    listener.onMethodCalled(method, receiver, arguments);
+    listener.onMethodReturned(method, receiver, arguments, returnValue);
+    return returnValue;
   }
 
   private static Method getMethod(final JoinPoint joinPoint) {

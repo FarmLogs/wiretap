@@ -10,5 +10,7 @@ import java.lang.reflect.Method;
 public interface MethodCallListener {
 
   void onMethodCalled(Method method, Object receiver, Object[] arguments);
+  void onMethodReturned(Method method, Object receiver, Object[] arguments, Object returnValue);
+  void onMethodThrew(Method method, Object receiver, Object[] arguments, Throwable throwable);
 
 }
