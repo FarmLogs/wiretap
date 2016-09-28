@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
  * @since 9/27/16
  * (C) 2016 Damian Wieczorek
  */
+@SuppressWarnings("WeakerAccess")
 public interface MethodCallListener {
 
   void onMethodCalled(Method method, Object receiver, Object[] arguments);

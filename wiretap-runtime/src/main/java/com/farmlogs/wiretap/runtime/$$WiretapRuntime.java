@@ -9,6 +9,7 @@ import org.aspectj.lang.reflect.CodeSignature;
 
 import java.lang.reflect.Method;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 @Aspect
 public final class $$WiretapRuntime {
 

@@ -5,6 +5,7 @@ package com.farmlogs.wiretap.runtime;
  * @since 9/27/16
  * (C) 2016 Damian Wieczorek
  */
+@SuppressWarnings({"unused", "WeakerAccess"})
 public final class Wiretap {
 
   private Wiretap() {
