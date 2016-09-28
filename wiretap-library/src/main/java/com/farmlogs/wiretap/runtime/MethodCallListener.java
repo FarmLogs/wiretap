@@ -9,6 +9,6 @@ import java.lang.reflect.Method;
  */
 public interface MethodCallListener {
 
-  void onMethodCalled(Method method, Object[] arguments);
+  void onMethodCalled(Method method, Object receiver, Object[] arguments);
 
 }

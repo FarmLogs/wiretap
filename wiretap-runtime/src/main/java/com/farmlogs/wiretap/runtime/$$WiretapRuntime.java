@@ -47,6 +47,7 @@ public final class $$WiretapRuntime {
     if (!enabled) return;
 
     final Method method = getMethod(joinPoint);
+    final Object receiver = joinPoint.getThis();
     final Object[] arguments = joinPoint.getArgs();
 
     final MethodCallListener listener = Wiretap.listener;
@@ -54,7 +55,7 @@ public final class $$WiretapRuntime {
       return;
     }
 
-    listener.onMethodCalled(method, arguments);
+    listener.onMethodCalled(method, receiver, arguments);
   }
 
   private static Method getMethod(final JoinPoint joinPoint) {
