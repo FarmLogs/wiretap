@@ -12,10 +12,6 @@ import java.lang.reflect.Method;
 @Aspect
 public final class $$WiretapRuntime {
 
-  private $$WiretapRuntime() {
-    throw new UnsupportedOperationException("No instances!");
-  }
-
   private static volatile boolean enabled = true;
 
   @Pointcut("within(@com.farmlogs.wiretap.Tap *)")
