@@ -12,9 +12,9 @@ public final class Wiretap {
     throw new IllegalArgumentException("No instances!");
   }
 
-  static MethodCallListener listener;
+  static WiretapListener listener;
 
-  public static void setMethodCallListener(final MethodCallListener listener) {
+  public static void setMethodCallListener(final WiretapListener listener) {
     Wiretap.listener = listener;
   }
 
