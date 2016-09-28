@@ -26,10 +26,11 @@ class WiretapPlugin implements Plugin<Project> {
     }
 
     project.dependencies {
-      debugCompile 'com.farmlogs.wiretap:wiretap-runtime:0.1-SNAPSHOT'
+      compile 'com.farmlogs.wiretap:wiretap-runtime:0.1-SNAPSHOT'
       // TODO this should come transitively
-      debugCompile 'org.aspectj:aspectjrt:1.8.6'
+      compile 'org.aspectj:aspectjrt:1.8.6'
       compile 'com.farmlogs.wiretap:wiretap-annotations:0.1-SNAPSHOT'
+      compile 'com.farmlogs.wiretap:wiretap-library:0.1-SNAPSHOT'
     }
 
     project.extensions.create('wiretap', WiretapExtension)
