@@ -1,13 +1,14 @@
-package com.example.hugo;
+package com.example.wiretap;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.TextView;
-import hugo.weaving.DebugLog;
 
-public class HugoActivity extends Activity {
+import com.farmlogs.wiretap.Tap;
+
+public class WiretapActivity extends Activity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     TextView tv = new TextView(this);
@@ -24,17 +25,23 @@ public class HugoActivity extends Activity {
     Charmer charmer = new Charmer("Jake");
     Log.d("Charming", charmer.askHowAreYou());
 
+    Agitator agitator = new Agitator("Jake");
+    try {
+      Log.d("Agitating", agitator.agitate());
+    } catch (UnsupportedOperationException ignored) {
+    }
+
     startSleepyThread();
   }
 
-  @DebugLog
+  @Tap
   private void printArgs(String... args) {
     for (String arg : args) {
       Log.i("Args", arg);
     }
   }
 
-  @DebugLog
+  @Tap
   private int fibonacci(int number) {
     if (number <= 0) {
       throw new IllegalArgumentException("Number must be greater than zero.");
@@ -54,14 +61,14 @@ public class HugoActivity extends Activity {
         sleepyMethod(SOME_POINTLESS_AMOUNT_OF_TIME);
       }
 
-      @DebugLog
+      @Tap
       private void sleepyMethod(long milliseconds) {
         SystemClock.sleep(milliseconds);
       }
     }, "I'm a lazy thr.. bah! whatever!").start();
   }
 
-  @DebugLog
+  @Tap
   static class Greeter {
     private final String name;
 
@@ -69,12 +76,12 @@ public class HugoActivity extends Activity {
       this.name = name;
     }
 
-    private String sayHello() {
+    String sayHello() {
       return "Hello, " + name;
     }
   }
 
-  @DebugLog
+  @Tap
   static class Charmer {
     private final String name;
 
@@ -82,8 +89,25 @@ public class HugoActivity extends Activity {
       this.name = name;
     }
 
-    public String askHowAreYou() {
+    String askHowAreYou() {
       return "How are you " + name + "?";
     }
   }
+
+  @Tap
+  static class Agitator {
+    private final String name;
+
+    Agitator(final String name) {
+      this.name = name;
+    }
+
+    String agitate() {
+      if ("Jake".equals(name)) {
+        throw new UnsupportedOperationException("Agitating Jake is not supported");
+      }
+      return "Hey " + name + ", did you know that iOS is the superior platform?";
+    }
+  }
+
 }
