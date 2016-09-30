@@ -9,12 +9,6 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-/**
- * @author Damian Wieczorek {@literal <damian@farmlogs.com>}
- * @since 9/30/16
- * (C) 2016 Damian Wieczorek
- */
-
 public class LoggingListener implements WiretapListener {
 
   private static void logCall(final Member member,

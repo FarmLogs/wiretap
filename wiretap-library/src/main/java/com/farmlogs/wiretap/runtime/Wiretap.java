@@ -1,9 +1,10 @@
 package com.farmlogs.wiretap.runtime;
 
 /**
- * @author Damian Wieczorek {@literal <damian@farmlogs.com>}
- * @since 9/27/16
- * (C) 2016 Damian Wieczorek
+ * The runtime entry point for Wiretap.
+ *
+ * The best place to initialize the wiretap listener is probably in your application's onCreate
+ * or attachBaseContext.
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public final class Wiretap {
