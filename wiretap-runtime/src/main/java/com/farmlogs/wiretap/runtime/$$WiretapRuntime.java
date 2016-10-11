@@ -1,14 +1,13 @@
 package com.farmlogs.wiretap.runtime;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.CodeSignature;
+import org.aspectj.lang.reflect.ConstructorSignature;
+import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -43,8 +42,8 @@ public final class $$WiretapRuntime {
         $$WiretapRuntime.enabled = enabled;
     }
 
-    @Around("method() || constructor()")
-    public Object logAndExecute(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("method()")
+    public Object executeMethodAndNotify(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!enabled) {
             return joinPoint.proceed();
         }
@@ -54,19 +53,31 @@ public final class $$WiretapRuntime {
             return joinPoint.proceed();
         }
 
-        final Member member = getMember(joinPoint);
+        final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        final Method method = signature.getMethod();
         final Object receiver = joinPoint.getThis();
         final Object[] arguments = joinPoint.getArgs();
 
-        if (member instanceof Method) {
-            return enterMethod(listener, (Method) member, receiver, arguments, joinPoint);
+        return enterMethod(listener, method, receiver, arguments, joinPoint);
+    }
+
+    @Around("constructor()")
+    public Object executeConstructorAndNotify(ProceedingJoinPoint joinPoint) throws Throwable {
+        if (!enabled) {
+            return joinPoint.proceed();
         }
 
-        if (member instanceof Constructor) {
-            return enterConstructor(listener, (Constructor) member, receiver, arguments, joinPoint);
+        final WiretapListener listener = Wiretap.listener;
+        if (listener == null) {
+            return joinPoint.proceed();
         }
 
-        throw new UnsupportedOperationException("Members must be either Methods or Constructors");
+        final ConstructorSignature signature = ((ConstructorSignature) joinPoint.getSignature());
+        final Constructor constructor = signature.getConstructor();
+        final Object receiver = joinPoint.getThis();
+        final Object[] arguments = joinPoint.getArgs();
+
+        return enterConstructor(listener, constructor, receiver, arguments, joinPoint);
     }
 
     private static Object enterMethod(final WiretapListener listener,
@@ -101,24 +112,6 @@ public final class $$WiretapRuntime {
         }
         listener.onConstructorReturned(constructor, receiver, arguments);
         return returnValue;
-    }
-
-    private static Member getMember(final JoinPoint joinPoint) {
-        try {
-            return getMember((CodeSignature) joinPoint.getSignature());
-        } catch (NoSuchMethodException e) {
-            throw new AssertionError("Could not find method at join point: " + joinPoint.toShortString());
-        }
-    }
-
-    private static Member getMember(final CodeSignature codeSignature) throws NoSuchMethodException {
-        final Class<?> declaringType = codeSignature.getDeclaringType();
-        final String methodName = codeSignature.getName();
-        final Class<?>[] parameterTypes = codeSignature.getParameterTypes();
-        if ("<init>".equals(methodName)) {
-            return declaringType.getDeclaredConstructor(parameterTypes);
-        }
-        return declaringType.getDeclaredMethod(methodName, parameterTypes);
     }
 
 }
