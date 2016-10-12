@@ -13,7 +13,7 @@
   <application
     android:name=".WiretapApplication">
     <activity
-      android:label="Hugo Example"
+      android:label="Wiretap Example"
       android:name=".WiretapActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
