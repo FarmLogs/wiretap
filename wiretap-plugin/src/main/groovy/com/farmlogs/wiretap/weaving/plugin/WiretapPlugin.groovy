@@ -41,8 +41,8 @@ class WiretapPlugin implements Plugin<Project> {
     }
 
     private static boolean isEnabled(Project project) {
-        if(project.hasProperty("hugo") && project.hugo.hasProperty("enabled")) {
-            return project.hugo.enabled;
+        if(project.hasProperty("wiretap") && project.wiretap.hasProperty("enabled")) {
+            return project.wiretap.enabled;
         }
         return true;
     }
