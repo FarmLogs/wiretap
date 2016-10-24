@@ -17,7 +17,7 @@ class WiretapPlugin implements Plugin<Project> {
             throw new IllegalStateException("'android' or 'android-library' plugin required.")
         }
 
-        final def transform = new WiretapTransform(project, isEnabled(project))
+        final def transform = new WiretapTransform(project)
 
         if (hasLib) {
             final def android = project.extensions.getByType(LibraryExtension)
@@ -38,13 +38,8 @@ class WiretapPlugin implements Plugin<Project> {
         }
 
         project.extensions.create('wiretap', WiretapExtension)
-    }
 
-    private static boolean isEnabled(Project project) {
-        if(project.hasProperty("wiretap") && project.wiretap.hasProperty("enabled")) {
-            return project.wiretap.enabled;
-        }
-        return true;
+
     }
 
 }

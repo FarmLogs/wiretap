@@ -16,13 +16,11 @@ import org.gradle.api.tasks.compile.JavaCompile
 class WiretapTransform extends Transform {
 
     private final Project project
-    private final boolean enabled
 
     private final Map<Pair<String, String>, JavaCompile> javaCompileTasks = new HashMap<>()
 
-    public WiretapTransform(final Project project, final boolean enabled) {
+    public WiretapTransform(final Project project) {
         this.project = project
-        this.enabled = enabled
     }
 
     /**
@@ -40,8 +38,7 @@ class WiretapTransform extends Transform {
                    final Collection<TransformInput> referencedInputs,
                    final TransformOutputProvider outputProvider,
                    final boolean isIncremental) throws IOException, TransformException, InterruptedException {
-        println("Compile tasks: ")
-        println(javaCompileTasks)
+        def enabled = isEnabled(project)
 
         inputs.each { TransformInput input ->
             def outputDir = outputProvider.getContentLocation("wiretap", outputTypes, scopes, Format.DIRECTORY)
@@ -139,14 +136,19 @@ class WiretapTransform extends Transform {
 
     @Override
     public Map<String, Object> getParameterInputs() {
-        return ImmutableMap.<String, Object> builder()
-                .put("enabled", enabled)
-                .build();
+        return ImmutableMap.<String, Object>builder().build();
     }
 
     @Override
     public boolean isIncremental() {
         return true
+    }
+
+    private static boolean isEnabled(Project project) {
+        if(project.hasProperty("wiretap") && project.property("wiretap").hasProperty("enabled")) {
+            return project.property("wiretap").getAt("enabled");
+        }
+        return true;
     }
 
 }
