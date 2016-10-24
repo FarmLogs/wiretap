@@ -40,6 +40,8 @@ class WiretapTransform extends Transform {
                    final boolean isIncremental) throws IOException, TransformException, InterruptedException {
         def enabled = isEnabled(project)
 
+        project.logger.info("wiretap is ${enabled ? "" : "not"} enabled")
+
         inputs.each { TransformInput input ->
             def outputDir = outputProvider.getContentLocation("wiretap", outputTypes, scopes, Format.DIRECTORY)
 
