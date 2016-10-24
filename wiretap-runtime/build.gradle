@@ -29,6 +29,7 @@ android.libraryVariants.all { variant ->
     String[] args = [
         "-showWeaveInfo",
         "-1.5",
+        "-Xset:generateNewLocalVariableTables=false",
         "-inpath", javaCompile.destinationDir.toString(),
         "-aspectpath", javaCompile.classpath.asPath,
         "-d", javaCompile.destinationDir.toString(),
