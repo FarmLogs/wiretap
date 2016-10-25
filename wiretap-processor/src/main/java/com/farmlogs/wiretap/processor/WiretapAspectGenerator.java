@@ -52,7 +52,7 @@ final class WiretapAspectGenerator {
         METHOD_INSIDE_ANNOTATED_TYPE("methodInsideAnnotatedType", "execution(!synthetic * *(..)) && withinAnnotatedClass()", false),
         CONSTRUCTOR_INSIDE_ANNOTATED_TYPE("constructorInsideAnnotatedType", "execution(!synthetic *.new(..)) && withinAnnotatedClass()", false),
         METHOD("method", "execution(@%s * *(..)) || methodInsideAnnotatedType()", true),
-        CONSTRUCTOR("constructor", "execution(@com.farmlogs.wiretap.Tap *.new(..)) || constructorInsideAnnotatedType()", true);
+        CONSTRUCTOR("constructor", "execution(@%s *.new(..)) || constructorInsideAnnotatedType()", true);
 
         final String label;
         private final String expression;
