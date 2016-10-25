@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'nexus'
+
+targetCompatibility = JavaVersion.VERSION_1_6
+sourceCompatibility = JavaVersion.VERSION_1_6
+
+dependencies {
+  compile 'com.squareup:javapoet:1.2.0'
+  compile 'com.google.auto.service:auto-service:1.0-rc2'
+  compile 'com.google.android:android:+'
+  compile 'com.google.auto.service:auto-service:1.0-rc2'
+  compile project(':wiretap-annotations')
+  compile project(':wiretap-runtime')
+}
+
+modifyPom {
+  project {
+    name "Wiretap Annotation Processor"
+    description POM_DESCRIPTION
+    url POM_URL
+
+    scm {
+      url POM_SCM_URL
+      connection POM_SCM_CONNECTION
+      developerConnection POM_SCM_DEV_CONNECTION
+    }
+
+    licenses {
+      license {
+        name POM_LICENCE_NAME
+        url POM_LICENCE_URL
+        distribution POM_LICENCE_DIST
+      }
+    }
+
+    developers {
+      developer {
+        id POM_DEVELOPER_ID
+        name POM_DEVELOPER_NAME
+      }
+    }
+  }
+}
