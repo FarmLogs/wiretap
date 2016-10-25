@@ -6,7 +6,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 dependencies {
-  compile 'org.aspectj:aspectjrt:1.8.6'
+  compile 'org.aspectj:aspectjrt:1.8.9'
   compile project(':wiretap-annotations')
   compile project(':wiretap-library')
 
@@ -29,6 +29,7 @@ android.libraryVariants.all { variant ->
     String[] args = [
         "-showWeaveInfo",
         "-1.5",
+        "-Xset:generateNewLocalVariableTables=false",
         "-inpath", javaCompile.destinationDir.toString(),
         "-aspectpath", javaCompile.classpath.asPath,
         "-d", javaCompile.destinationDir.toString(),
