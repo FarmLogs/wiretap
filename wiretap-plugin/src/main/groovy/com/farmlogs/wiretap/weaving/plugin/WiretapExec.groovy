@@ -27,6 +27,7 @@ class WiretapExec {
         String[] args = [
                 "-showWeaveInfo",
                 "-1.5",
+                "-preserveAllLocals",
                 "-Xset:generateNewLocalVariableTables=false",
                 "-inpath", inpath,
                 "-aspectpath", aspectpath,
