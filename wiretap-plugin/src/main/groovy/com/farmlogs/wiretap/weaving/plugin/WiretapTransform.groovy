@@ -9,7 +9,6 @@ import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 import org.gradle.api.ProjectConfigurationException
 import org.gradle.api.file.FileCollection
-import org.gradle.api.internal.file.collections.SimpleFileCollection
 import org.gradle.api.tasks.compile.JavaCompile
 
 @CompileStatic
@@ -55,19 +54,7 @@ class WiretapTransform extends Transform {
                     return
                 }
 
-                String inputDirs
-                if (isIncremental) {
-                    final FileCollection changed = new SimpleFileCollection(project.files().asList())
-                    directoryInput.changedFiles.each { File file, Status status ->
-                        if (status == Status.ADDED || status == Status.CHANGED) {
-                            changed += project.files(file.parent)
-                        }
-                    }
-                    inputDirs = changed.asPath
-                } else {
-                    inputDirs = inputFile.path
-                }
-
+                final String inputDirs = inputFile.path
                 final JavaCompile javaCompile = getJavaCompile(inputFile)
                 final FileCollection bootClassPath = getBootClassPath(javaCompile)
 

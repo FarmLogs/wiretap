@@ -2,3 +2,4 @@ include ':wiretap-annotations'
 include ':wiretap-plugin'
 include ':wiretap-runtime'
 include ':wiretap-library'
+include ":wiretap-processor"
