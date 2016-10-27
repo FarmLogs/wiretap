@@ -13,7 +13,7 @@ trigger other side effects when certain events happen in your app:
 Generally, you want to be able to do this without cluttering up your code and minimize runtime set-up.
 Compile-time tools are getting easier to use, but are still out of the reach of many developers: they
 still aren't "easy" to use and take time to set up. Wiretap attempts to provide a general solution
-for listening to calls at runtime.
+for listening to calls at runtime. It also works with Kotlin!
 
 Set-up is two steps:
 
@@ -53,8 +53,30 @@ void myMethod() {
 }
 ```
 
-For more information, see [the example project](wiretap-example).
+For more information, see [the example project](wiretap-example), which
+implements `WiretapListener` [as a debug logger](wiretap-example/src/main/java/com/example/wiretap/LoggingListener.java).
 
+Custom Annotations
+------------------
+
+You can also trigger wiretap with your own annotations. For example, you might have a `@FancyLog("fancy option")`
+annotation. Instead of having to include the extra `@Tap` annotation at each site, you can annotate `FancyLog`
+with `@TapAnnotation`:
+
+```Java
+@TapAnnotation
+public @interface FancyLog {
+  String value();
+}
+```
+
+In order for these to take effect, you also need to run the `wiretap-processor` with android-apt (or `kapt` if you are using Kotlin):
+
+```Groovy
+dependencies {
+  apt 'com.farmlogs.wiretap:wiretap-processor:0.1-SNAPSHOT'
+}
+```
 
 Runtime Impact
 --------------
